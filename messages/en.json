@@ -646,7 +646,9 @@
       "copyShareLink": "Copy share link",
       "shareLinkCopyFailed": "Failed to copy share link",
       "copyMapHash": "Copy map hash",
-      "mapHashCopyFailed": "Failed to copy map hash"
+      "mapHashCopyFailed": "Failed to copy map hash",
+      "playPreview": "Play preview",
+      "pausePreview": "Pause preview"
    },
    "player": {
       "followers": "Followers",

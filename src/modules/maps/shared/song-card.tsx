@@ -9,8 +9,10 @@ import type { LeaderboardSearchParams } from '@/modules/maps/detail/map-leaderbo
 import { LinkedNames } from '@/modules/search/search-link';
 import { FadeInImage } from '@/shared/components/fade-in-image';
 import { NAV_CARD_ABOVE_OVERLAY, NAV_CARD_PRESS, NavCardChevron, NavCardOverlay } from '@/shared/components/nav-card';
+import { PreviewAudioImage } from '@/shared/components/preview-audio-image';
 import { Time } from '@/shared/components/time';
 import { cn } from '@/shared/format/helpers';
+import { getBeatSaverPreviewUrl } from '@/shared/format/preview';
 import { BLURRED_BG_IMAGE_CLASSES, CARD_GRADIENT_CLASSES } from '@/shared/format/styling';
 
 const mapRoute = getRouteApi('/map/$id');
@@ -25,6 +27,7 @@ interface SongCardProps {
    accentClass: string;
    accentTooltip?: string;
    mapId: number;
+   hash?: string;
    linkSearch: LeaderboardSearchParams;
    pills?: ReactNode;
    mobileMetadata?: ReactNode;
@@ -48,6 +51,7 @@ export function SongCard({
    accentClass,
    accentTooltip,
    mapId,
+   hash,
    linkSearch,
    pills,
    mobileMetadata,
@@ -104,13 +108,14 @@ export function SongCard({
                   coverClassName
                )}
             >
-               <FadeInImage
+               <PreviewAudioImage
                   src={coverUrl}
                   alt={songName}
                   fill
-                  className="object-cover"
                   sizes={compact ? '56px' : '(min-width: 768px) 86px, 96px'}
                   priority={coverPriority}
+                  previewUrl={getBeatSaverPreviewUrl(hash)}
+                  className="h-full w-full"
                />
                {coverBadge && <div className="absolute right-0.75 bottom-0.75 left-0.75 z-40 flex justify-center">{coverBadge}</div>}
             </div>

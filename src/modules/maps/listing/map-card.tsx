@@ -62,6 +62,7 @@ export function MapCard({
                    : t('map.statusUnranked')
          }
          mapId={map.id}
+         hash={map.hash}
          linkSearch={linkSearch}
          className={className}
          compact={compact}

@@ -14,10 +14,11 @@ import { BeatSaverKeyPill } from '@/modules/maps/shared/beatsaver-key-pill';
 import { LinkedNames } from '@/modules/search/search-link';
 import type { MapControllerGetMapByIdResponse } from '@/shared/api/generated/ApiParams';
 import { CopyButton } from '@/shared/components/copy-button';
-import { FadeInImage } from '@/shared/components/fade-in-image';
+import { PreviewAudioImage } from '@/shared/components/preview-audio-image';
 import { Stat } from '@/shared/components/stat';
 import { Time } from '@/shared/components/time';
 import { cn, formatNumber } from '@/shared/format/helpers';
+import { getBeatSaverPreviewUrl } from '@/shared/format/preview';
 import { getStatusAccentClass } from '@/shared/format/styling';
 import { isLeaderboardPersonalizationParam } from '@/shared/url-state/persisted-filter-preferences';
 
@@ -28,13 +29,14 @@ export function MapLeaderboardHero({ mapInfo, leaderboard, linkSearchParams }: M
    return (
       <div className="flex flex-col gap-1.5">
          <div className="flex min-w-0 flex-1 items-center gap-4 md:gap-5">
-            <FadeInImage
+            <PreviewAudioImage
                src={mapInfo.coverUrl}
                alt={mapInfo.songName}
                width={96}
                height={96}
                priority
-               className="h-20 w-20 shrink-0 rounded-md object-cover shadow-md outline outline-1 outline-black/10 sm:h-24 sm:w-24 md:h-32 md:w-32 dark:outline-white/10"
+               previewUrl={getBeatSaverPreviewUrl(mapInfo.hash)}
+               className="h-20 w-20 shrink-0 rounded-md shadow-md outline outline-1 outline-black/10 sm:h-24 sm:w-24 md:h-32 md:w-32 dark:outline-white/10"
             />
 
             <div className="flex min-w-0 flex-1 flex-col gap-1">
