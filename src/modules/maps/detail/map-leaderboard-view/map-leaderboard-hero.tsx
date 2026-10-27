@@ -1,7 +1,7 @@
 'use client';
 
 import { useLocation } from '@tanstack/react-router';
-import { Check, Hash } from 'lucide-react';
+import { Check, Eye, Hash } from 'lucide-react';
 import { FaClock, FaDrum, FaLink, FaMusic } from 'react-icons/fa';
 import { useTranslations } from 'use-intl';
 
@@ -11,6 +11,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import type { LeaderboardSearchParams, MapLeaderboard } from '@/modules/maps/detail/map-leaderboard-view/map-leaderboard-view-types';
 import { MapReuploadVersionSelection } from '@/modules/maps/detail/map-reupload-version-selection';
 import { BeatSaverKeyPill } from '@/modules/maps/shared/beatsaver-key-pill';
+import { ViewerDialog } from '@/modules/maps/viewer-dialog';
 import { LinkedNames } from '@/modules/search/search-link';
 import type { MapControllerGetMapByIdResponse } from '@/shared/api/generated/ApiParams';
 import { CopyButton } from '@/shared/components/copy-button';
@@ -57,6 +58,7 @@ export function MapLeaderboardHero({ mapInfo, leaderboard, linkSearchParams }: M
                             : tc('map.statusUnranked')}
                   </span>
                   <ShareMapButton />
+                  {mapInfo.bsid && <ViewMapButton bsid={mapInfo.bsid} />}
                   <CopyMapHashButton hash={mapInfo.hash} />
                   <MapReuploadVersionSelection
                      mapInfo={mapInfo}
@@ -110,6 +112,40 @@ function MapStats({ mapInfo }: { mapInfo: MapControllerGetMapByIdResponse }) {
          </Stat>
          {mapInfo.bsid && <BeatSaverKeyPill beatSaverKey={mapInfo.bsid} variant="copy" size="sm" className="bg-secondary/35 rounded-md" />}
       </div>
+   );
+}
+
+function ViewMapButton({ bsid }: { bsid: string }) {
+   const t = useTranslations();
+
+   return (
+      <ViewerDialog
+         bsid={bsid}
+         tooltip={t('map.openViewer')}
+         trigger={({ viewerUrl, openViewerAction }) => (
+            <Tooltip>
+               <TooltipTrigger asChild>
+                  <Button
+                     type="button"
+                     variant="secondary"
+                     size="icon-xs"
+                     aria-label={t('map.openViewer')}
+                     title={t('map.openViewer')}
+                     className="border-border/70 h-6 w-6 cursor-pointer rounded-full border"
+                     onClick={openViewerAction}
+                     onAuxClick={(event) => {
+                        if (event.button === 1) {
+                           window.open(viewerUrl, '_blank', 'noopener,noreferrer');
+                        }
+                     }}
+                  >
+                     <Eye className="size-2.5" />
+                  </Button>
+               </TooltipTrigger>
+               <TooltipContent>{t('map.openViewer')}</TooltipContent>
+            </Tooltip>
+         )}
+      />
    );
 }
 

@@ -648,7 +648,9 @@
       "copyMapHash": "Copy map hash",
       "mapHashCopyFailed": "Failed to copy map hash",
       "playPreview": "Play preview",
-      "pausePreview": "Pause preview"
+      "pausePreview": "Pause preview",
+      "openViewer": "Open Viewer",
+      "mapViewer": "Map Viewer"
    },
    "player": {
       "followers": "Followers",
